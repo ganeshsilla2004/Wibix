@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to create ReadOnly access policies and roles
+
+Resources:
+  ReadOnlyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: WibixReadOnlyRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+
+Outputs:
+  RoleName:
+    Description: Name of the ReadOnly role created
+    Value: !Ref ReadOnlyRole
